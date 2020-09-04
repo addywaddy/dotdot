@@ -1,0 +1,29 @@
+[credential]
+	helper = osxkeychain
+[user]
+  name = Adam Groves
+  email = adam.groves@gmail.com
+[alias]
+  st = status
+  pullr = pull --rebase
+  ci = commit
+  co = checkout
+  graph = log --graph --date=short --all --decorate --format='%Cred%h%Creset: %s [%Cgreen%an%Creset, %Cblue%ad%Creset] %Cred%d%Creset'
+  diffc = diff --cached
+  diffw = diff --word-diff
+  diffn = diff --name-only
+  me = log --date=short --all --author=adam --author-date-order --format='%Cblue%ad%Creset %Cred%h%Creset: %s'
+  sup = !sh -c 'git push --set-upstream origin $(git symbolic-ref --short HEAD)'
+  yunomerge = !sh -c 'git branch -r --no-merged | grep -v HEAD |xargs git show --date=short -s --pretty=\"format:%cd - %Cblue%an%Creset%Cgreen%d%Creset\"'
+  diffmerge= !bash -c 'comm -12 <(sort <(git branch -r --no-merged origin/master)) <(sort <(git branch -r --merged origin/develop))'
+[merge]
+	ff = false
+[rebase]
+	autosquash = true
+[color]
+  ui = auto
+	diff = auto
+[color "status"]
+  changed = yellow
+  added = green
+  untracked = red
