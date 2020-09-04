@@ -1,5 +1,6 @@
 tap "homebrew/cask"
 tap "d12frosted/emacs-plus"
+tap "homebrew/cask-fonts"
 cask "docker"
 brew "kubectl"
 brew "minikube"
@@ -12,3 +13,6 @@ cask "iterm2"
 brew "emacs-plus", args: ["with-no-titlebar"]
 brew "git"
 brew "vim"
+brew "svn"
+cask "font-roboto-mono"
+brew "fd"

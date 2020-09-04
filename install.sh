@@ -3,8 +3,9 @@
 unlink ~/Brewfile
 ln -s $(pwd)/Brewfile ~/Brewfile
 
-unlink ~/.vimrc
-ln -s $(pwd)/vimrc ~/.vimrc
+mkdir -p ~/.vim
+unlink ~/.vim/vimrc
+ln -s $(pwd)/vimrc ~/.vim/vimrc
 
 unlink ~/.gitconfig
 ln -s $(pwd)/gitconfig ~/.gitconfig
