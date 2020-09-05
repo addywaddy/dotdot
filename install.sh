@@ -15,3 +15,6 @@ ln -s $(pwd)/zsh ~/.zsh
 
 unlink ~/.zshrc 2> /dev/null
 ln -s $(pwd)/zsh/zshrc.zsh ~/.zshrc
+
+unlink ~/.slate 2> /dev/null
+ln -s $(pwd)/slate ~/.slate
