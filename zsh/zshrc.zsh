@@ -63,3 +63,5 @@ complete -o nospace -C /usr/local/bin/aws-okta aws-okta
 setopt interactivecomments
 
 autoload -Uz compinit && compinit
+
+. /usr/local/opt/asdf/asdf.sh
