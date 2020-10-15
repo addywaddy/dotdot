@@ -63,6 +63,14 @@ Plug 'christianrondeau/vim-base64'
 " Scratch pad
 Plug 'metakirby5/codi.vim'
 
+" Directory browser
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+
+let g:fern#renderer = "nerdfont"
+
 " Syntax
 " CSV highlighting
 " Elm
@@ -82,7 +90,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-set guifont=Roboto\ Mono:h14
+" set guifont=Roboto\ Mono\ Nerd\ Font:h14
+set guifont=Roboto\ Mono\ Nerd\ Font\ Complete\ Mono:h14
+" set guifont=Hack\ Nerd\ Font:h14
 set number
 set linespace=2
 set wrap
@@ -142,6 +152,7 @@ noremap <C-p> :Files<CR>
 noremap <C-b> :Buffers<CR>
 noremap <C-,> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 map <Leader>f :Ack 
+map <leader>g :Fern . -drawer -toggle <CR>
 
 if has('gui_running')
   noremap <D-1> 1gt
@@ -304,4 +315,3 @@ nmap <silent> gb <Plug>(coc-references)
 
 " Fornat
 nmap <silent> gf  <Plug>(coc-format-selected)
-

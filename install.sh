@@ -10,14 +10,10 @@ ln -s $(pwd)/vimrc ~/.vim/vimrc
 unlink ~/.gitconfig 2> /dev/null
 ln -s $(pwd)/gitconfig ~/.gitconfig
 
-unlink ~/.zsh 2> /dev/null
-ln -s $(pwd)/zsh ~/.zsh
-
-unlink ~/.zshrc 2> /dev/null
-ln -s $(pwd)/zsh/zshrc.zsh ~/.zshrc
-
 unlink ~/.slate 2> /dev/null
 ln -s $(pwd)/slate ~/.slate
 
 unlink ~/.irbrc 2> /dev/null
 ln -s $(pwd)/irbrc ~/.irbrc
+
+echo 'source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme' >>! ~/.zshrc
