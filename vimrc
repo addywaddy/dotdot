@@ -43,8 +43,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-obsession'
 " Autpairs
 Plug 'jiangmiao/auto-pairs'
-" Tab completion
-Plug 'ervandew/supertab'
 " Indentation-aware pasting
 Plug 'sickill/vim-pasta'
 " Indentation
@@ -68,6 +66,10 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+
+Plug 'sharat87/roast.vim'
+let g:pymode_python = 'python3'
 
 let g:fern#renderer = "nerdfont"
 
@@ -225,6 +227,7 @@ au BufRead,BufNewFile {*.md,*.txt} setlocal spell
 au BufRead,BufNewFile *.less set ft=css
 au BufRead,BufNewFile *.adoc set ft=asciidoc
 au BufRead,BufNewFile *.boot set ft=clj
+set hidden
 filetype plugin indent on
 
 " Sparkup for other filetypes
@@ -315,3 +318,5 @@ nmap <silent> gb <Plug>(coc-references)
 
 " Fornat
 nmap <silent> gf  <Plug>(coc-format-selected)
+
+source ~/.vim/config/coc.vim
