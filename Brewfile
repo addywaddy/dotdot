@@ -4,6 +4,7 @@ tap 'homebrew/cask-fonts'
 
 brew 'asdf'
 brew 'awscli'
+brew 'bat'
 brew 'coreutils'
 brew 'curl'
 brew 'emacs-plus', args: ['with-no-titlebar']
