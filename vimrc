@@ -67,11 +67,13 @@ Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-git-status.vim'
+Plug 'vim-scripts/CycleColor'
 
 Plug 'sharat87/roast.vim'
 let g:pymode_python = 'python3'
 
 let g:fern#renderer = "nerdfont"
+let g:fern#default_hidden = 1
 
 " Syntax
 " CSV highlighting
@@ -111,8 +113,8 @@ set colorcolumn=120
 set tw=100
 
 " Hide scrollbars
-set guioptions=
-" Hide title and icons
+" set guioptions=
+" " Hide title and icons
 set notitle
 set noicon
 
@@ -154,7 +156,7 @@ noremap <C-p> :Files<CR>
 noremap <C-b> :Buffers<CR>
 noremap <C-,> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 map <Leader>f :Ack 
-map <leader>g :Fern . -drawer -toggle <CR>
+map <leader>g :Fern . -drawer -toggle -reveal=% <CR>
 
 if has('gui_running')
   noremap <D-1> 1gt
@@ -201,7 +203,8 @@ nnoremap <C-W>] <C-W>=
 " Vim Test
 let test#ruby#rails#executable = 'rails test -p'
 function! DockerTransform(cmd) abort
-  return 'docker exec -it payment-api '. a:cmd
+  let pod = input('Enter pod name: ')
+  return 'docker exec ' . pod . ' ' . a:cmd
 endfunction
 
 function! DefaultTransform(cmd) abort
@@ -249,6 +252,12 @@ set diffopt+=vertical
 function! ChangeQuotes()
   normal cs"'
 endfunction
+
+function! RidRockets()
+  normal va{
+  %s/\'\(\w\+\)\'\s=>/\1:/g
+endfunction
+
 nmap <silent> <leader>' :call ChangeQuotes()<CR>
 " regenerate ctags
 map <Leader>ct :!ctags -R --sort=yes --exclude=.git --exclude=tmp --exclude=node_modules --exclude=public $(git rev-parse --show-toplevel)<CR>
@@ -305,18 +314,11 @@ set shell=/bin/bash
 function! NextColorScheme()
 endfunction
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gb <Plug>(coc-references)
-
-" Fornat
-nmap <silent> gf  <Plug>(coc-format-selected)
 
 source ~/.vim/config/coc.vim
+
+" Open new split panes to right and bottom, which feels more natural than Vim’s default:
+set splitbelow
+set splitright

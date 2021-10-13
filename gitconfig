@@ -27,3 +27,5 @@
   changed = yellow
   added = green
   untracked = red
+[core]
+	excludesFile = ~/.gitignore
