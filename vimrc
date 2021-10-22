@@ -268,7 +268,7 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitroot', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'gitroot', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'gitroot': 'LightlineGitRoot',
