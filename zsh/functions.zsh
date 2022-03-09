@@ -56,7 +56,7 @@ function xkcdpass () {
   for I in $(seq 1 "$NUM"); do
       WORDS=$(echo "$DICT"|gshuf -n 4|paste -sd ' ' -)
       XKCD=$(echo "$WORDS"|sed 's/ //g')
-      echo "$XKCD ($WORDS)"|awk '{x=$1;$1="";printf "%-36s %s\n", x, $0}'
+      echo "$XKCD ($WORDS)"|awk '{x=$1;$1="";printf "%-36s %s\n", x, $0}' | awk '{print tolower($0)}'
   done | column
 }
 
@@ -68,14 +68,18 @@ function ibmcc () {
 # FZF functions
 fb() {
   local branches branch
-  # branches=$(git branch -vv) &&
-  # branch=$(echo "$branches" | fzf +m) &&
-  # git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
   branches=$(git branch -a) &&
   branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch")
+  git checkout $(echo "$branch" | cut -d / -f 3,10)
 }
 
 fp() {
   fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'
+}
+
+function mov2gif() {
+  ffmpeg -i $1.mov \
+    -s 1200x800 -pix_fmt rgb24 -r 10 -f gif - \
+    | gifsicle --optimize=3 --delay=3 \
+    > $1.gif
 }
