@@ -8,6 +8,7 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/Cellar/node/7.7.1_1/bin:$PATH
 export PATH=$PATH:$HOME/Scripts
 export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/.cargo/bin
 export EDITOR="/usr/local/bin/vim"
 export VISUAL=$EDITOR
 

@@ -29,3 +29,5 @@
   untracked = red
 [core]
 	excludesFile = ~/.gitignore
+[init]
+	defaultBranch = main

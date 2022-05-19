@@ -5,6 +5,8 @@ call plug#begin()
 Plug 'chriskempson/base16-vim'
 Plug 'lmintmate/blue-mood-vim'
 Plug 'dracula/vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'Rigellute/rigel'
 " Alignment
 Plug 'junegunn/vim-easy-align'
 " Fuzzy find
@@ -70,6 +72,9 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'vim-scripts/CycleColor'
 
 Plug 'sharat87/roast.vim'
+
+Plug 'jlcrochet/vim-rbs'
+
 let g:pymode_python = 'python3'
 
 let g:fern#renderer = "nerdfont"
@@ -83,6 +88,8 @@ let g:fern#default_hidden = 1
 " Plug 'aklt/plantuml-syntax'
 " Plug 'tomlion/vim-solidity'
 " Plug 'Zaptic/elm-vim'
+Plug 'elmcast/elm-vim'
+let g:elm_format_autosave = 1
 " Plug 'chrisbra/csv.vim'
 " Plug 'posva/vim-vue'
 " Plug 'leafgarland/typescript-vim'
@@ -95,7 +102,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " set guifont=Roboto\ Mono\ Nerd\ Font:h14
-set guifont=Roboto\ Mono\ Nerd\ Font\ Complete\ Mono:h14
+set guifont=Roboto\ Mono\ Light\ Nerd\ Font\ Complete\ Mono:h14
 " set guifont=Hack\ Nerd\ Font:h14
 set number
 set linespace=2
@@ -130,6 +137,7 @@ set smartcase
 
 " Syntaxes
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,*.pill}    set ft=ruby
+au BufRead,BufNewFile {*.rbs,*.rbi}    set ft=rbs
 
 " Spelling
 au BufRead,BufNewFile {*.md,*.txt} setlocal spell
@@ -168,11 +176,12 @@ if has('gui_running')
   noremap <D-7> 7gt
   noremap <D-8> 8gt
   noremap <D-9> 9gt
-  color base16-porple
+  " color base16-porple
+  colorscheme rigel
 else
   set termguicolors
   set background=dark
-  color base16-porple
+  colorscheme rigel
   noremap <Leader>1 1gt
   noremap <Leader>2 2gt
   noremap <Leader>3 3gt
@@ -204,7 +213,7 @@ nnoremap <C-W>] <C-W>=
 let test#ruby#rails#executable = 'rails test -p'
 function! DockerTransform(cmd) abort
   let pod = input('Enter pod name: ')
-  return 'docker exec ' . pod . ' ' . a:cmd
+  return 'docker exec -it ' . pod . " sh -c 'PARALLEL_WORKERS=1 " . a:cmd ."'"
 endfunction
 
 function! DefaultTransform(cmd) abort
@@ -245,6 +254,7 @@ highlight default link TrailingWhiteSpace Error
 match TrailingWhiteSpace /\s\+$/
 autocmd InsertEnter * hi link TrailingWhiteSpace Normal
 autocmd InsertLeave * hi link TrailingWhiteSpace Error
+highlight Search guibg=#ffcc1b
 
 " Use vertical diffs
 set diffopt+=vertical
@@ -255,7 +265,7 @@ endfunction
 
 function! RidRockets()
   normal va{
-  %s/\'\(\w\+\)\'\s=>/\1:/g
+  %s/:\(\w\+\)\s*=>/\1:/g
 endfunction
 
 nmap <silent> <leader>' :call ChangeQuotes()<CR>
@@ -264,8 +274,9 @@ map <Leader>ct :!ctags -R --sort=yes --exclude=.git --exclude=tmp --exclude=node
 
 let g:slime_target = "vimterminal"
 
+let g:rigel_lightline = 1
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
+      \ 'colorscheme': 'rigel',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'gitroot', 'filename', 'modified' ] ]
@@ -322,3 +333,9 @@ source ~/.vim/config/coc.vim
 " Open new split panes to right and bottom, which feels more natural than Vim’s default:
 set splitbelow
 set splitright
+
+" Commented out as makes vim almost unresponsive
+" " Folding by syntax
+" set foldmethod=syntax
+" " Default to all folds open when opening a file
+" au BufRead * normal zR
