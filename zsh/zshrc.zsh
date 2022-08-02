@@ -2,6 +2,7 @@
 fpath=(~/.zsh/completions $fpath)
 autoload -U compinit
 compinit
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 autoload -U zmv
 alias mmv='noglob zmv -W'
@@ -18,6 +19,7 @@ bindkey -e
 . ~/.zsh/prompt.zsh
 . ~/.zsh/iterm.zsh
 . ~/.zsh/ruby.zsh
+. /usr/local/opt/asdf/libexec/asdf.sh
 
 # Command history
 HISTFILE=~/.histfile
@@ -46,6 +48,14 @@ PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -
 
 ttyctl -f # The  -f  option  freezes the tty, enabling vim to receive <C-s> commands
 
+function iterm2_print_user_vars() {
+  iterm2_set_user_var kubecontext $(kubectl config current-context)
+}
+
+function iterm2_print_user_vars() {
+  iterm2_set_user_var kubecontext $(kubectl config current-context)
+}
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -65,3 +75,17 @@ setopt interactivecomments
 autoload -Uz compinit && compinit
 
 . /usr/local/opt/asdf/asdf.sh
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH=$PATH:$HOME/Scripts
+export PATH=$PATH:$HOME/.cargo/bin

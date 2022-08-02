@@ -1,5 +1,4 @@
-let $FZF_DEFAULT_COMMAND='fd --type f'
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+" set grepprg=rg\ --hidden\ --vimgrep\ --no-heading\ --smart-case
 call plug#begin()
 " Colorschemes
 Plug 'chriskempson/base16-vim'
@@ -151,14 +150,14 @@ au BufRead,BufNewFile *.boot set ft=clj
 au BufNewFile,BufRead *.orgy setfiletype org
 
 " FZF
-if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
+" if executable("rg")
+"     set grepprg=rg\ --hidden\ --vimgrep\ --no-heading
+"     set grepformat=%f:%l:%c:%m,%f:%l:%m
+" endif
 
 " bind K to grep word under cursor
 
-let g:ackprg = 'rg --vimgrep --no-heading'
+let g:ackprg = 'rg --hidden --vimgrep --no-heading'
 let g:fzf_history_dir = '~/.fzf/history'
 noremap <C-p> :Files<CR>
 noremap <C-b> :Buffers<CR>
@@ -268,6 +267,10 @@ function! RidRockets()
   %s/:\(\w\+\)\s*=>/\1:/g
 endfunction
 
+function! PrettyJSON()
+  %!python3 -m json.tool
+endfunction
+
 nmap <silent> <leader>' :call ChangeQuotes()<CR>
 " regenerate ctags
 map <Leader>ct :!ctags -R --sort=yes --exclude=.git --exclude=tmp --exclude=node_modules --exclude=public $(git rev-parse --show-toplevel)<CR>
@@ -320,7 +323,7 @@ endfunction
 
 let g:vue_pre_processors = ['typescript']
 
-set shell=/bin/bash
+set shell=/usr/local/bin/zsh
 
 function! NextColorScheme()
 endfunction
@@ -339,3 +342,8 @@ set splitright
 " set foldmethod=syntax
 " " Default to all folds open when opening a file
 " au BufRead * normal zR
+"--hidden --vimgrep --no-heading --smart-case -g '!.git/'"
+" let g:FerretExecutableArguments = {
+"   \   'rg': "--hidden --vimgrep --no-heading --no-config --max-columns 4096 -g '!.git/'"
+"   \ }
+" set grepprg=rg\ --hidden\ --vimgrep\ --no-heading\ --smart-case
