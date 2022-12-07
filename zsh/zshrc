@@ -18,10 +18,10 @@ bindkey -e
 . ~/.zsh/iterm.zsh
 
 # Command history
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=100000
-setopt autocd
+setopt INC_APPEND_HISTORY_TIME
 
 # Directory history
 DIRSTACKSIZE=10

@@ -6,8 +6,8 @@ ln -s $(pwd)/Brewfile ~/Brewfile
 mkdir -p ~/.vim
 unlink ~/.vim/vimrc 2> /dev/null
 unlink ~/.vim/config 2> /dev/null
-ln -s $(pwd)/vim/vimrc ~/.vim/vimrc
 ln -s $(pwd)/vim/config ~/.vim/config
+ln -s $(pwd)/vim/vimrc ~/.vimrc
 
 unlink ~/.gitconfig 2> /dev/null
 ln -s $(pwd)/gitconfig ~/.gitconfig

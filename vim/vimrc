@@ -74,6 +74,8 @@ Plug 'sharat87/roast.vim'
 
 Plug 'jlcrochet/vim-rbs'
 
+Plug 'nicwest/vim-camelsnek'
+
 let g:pymode_python = 'python3'
 
 let g:fern#renderer = "nerdfont"
@@ -332,6 +334,18 @@ endfunction
 nmap <silent> gd <Plug>(coc-definition)
 
 source ~/.vim/config/coc.vim
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+" Insert <tab> when previous text is space, refresh completion if not.
+inoremap <silent><expr> <TAB>
+\ coc#pum#visible() ? coc#pum#next(1):
+\ <SID>check_back_space() ? "\<Tab>" :
+\ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Open new split panes to right and bottom, which feels more natural than Vim’s default:
 set splitbelow

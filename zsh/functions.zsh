@@ -79,7 +79,11 @@ fp() {
 
 function mov2gif() {
   ffmpeg -i $1.mov \
-    -s 1200x800 -pix_fmt rgb24 -r 10 -f gif - \
+    -s 1200x800 -pix_fmt rgb24 -r 24 -f gif - \
     | gifsicle --optimize=3 --delay=3 \
     > $1.gif
+}
+
+function iterm2_print_user_vars() {
+  iterm2_set_user_var kube_context $(kubectl config current-context 2>/dev/null)
 }
