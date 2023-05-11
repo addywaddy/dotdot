@@ -214,7 +214,7 @@ nnoremap <C-W>] <C-W>=
 let test#ruby#rails#executable = 'rails test -p'
 function! DockerTransform(cmd) abort
   let pod = input('Enter pod name: ')
-  return 'docker exec -it ' . pod . " sh -c 'PARALLEL_WORKERS=1 " . a:cmd ."'"
+  return 'docker exec -it ' . pod . " sh -c 'PARALLEL_WORKERS=1 MIX_ENV=test " . a:cmd ."'"
 endfunction
 
 function! DefaultTransform(cmd) abort
