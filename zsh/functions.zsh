@@ -87,3 +87,31 @@ function mov2gif() {
 function iterm2_print_user_vars() {
   iterm2_set_user_var kube_context $(kubectl config current-context 2>/dev/null)
 }
+
+free2seal() {
+  __helper() {
+    echo "Usage: free2seal [DOMAIN] [STAGE] [SCOPE] [SECRET_NAME] [SECRET_KEY]"
+    echo "Args:"
+    echo "-  DOMAIN:      \"mops\""
+    echo "-  STAGE:       \"dev\",    \"int\"            or \"prod\""
+    echo "-  SCOPE:       \"strict\", \"namespace-wide\" or \"cluster-wide\""
+    echo "-  SECRET_NAME: \"my_awesome_secret\""
+    echo "-  SECRET_KEY: \"key\""
+  }
+  if [ $# -ne 5 ]; then __helper; return 1
+    else for x in "$@"; do if [ $x = "-h" ] || [ $x = "--help" ] || [ $x = "help" ]; then __helper; return 1; fi; done
+  fi
+  DOMAIN=$1;STAGE=$2;SCOPE=$3;SECRET_NAME=$4;SECRET_KEY=$5
+  read -sp 'Please enter your plain text secret: ' SECRET_VALUE
+  aws-okta select master-$DOMAIN-$STAGE-OktaDev 1>/dev/null 2>&1
+  kubectl create secret generic "$SECRET_NAME" \
+    --from-literal="${SECRET_KEY}=${SECRET_VALUE}" \
+    -o yaml \
+    --dry-run=client \
+    | kubeseal \
+    --controller-namespace sealed-secrets \
+    --controller-name sealed-secrets \
+    --scope "$SCOPE" \
+    -o yaml \
+    | yq '.spec.encryptedData'
+}
